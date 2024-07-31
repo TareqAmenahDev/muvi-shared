@@ -10,8 +10,8 @@ repositories {
     mavenLocal()
 }
 
-val versionName = "0.0.1"
-val iosDeploymentTarget = "16.0"
+val versionName = "0.0.2"
+val iosDeploymentTarget = "13.0"
 
 kotlin {
     androidTarget {
