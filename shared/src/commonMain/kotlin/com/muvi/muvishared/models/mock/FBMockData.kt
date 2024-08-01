@@ -55,21 +55,25 @@ class FBMockData {
                 id = "1",
                 name = "Modifier 1",
                 price = 30.0,
+                isOutOfStock = false,
             ),
             ModifierItem(
                 id = "2",
                 name = "Modifier 2",
                 price = 30.0,
+                isOutOfStock = false,
             ),
             ModifierItem(
                 id = "3",
                 name = "Modifier 3",
                 price = 30.0,
+                isOutOfStock = false,
             ),
             ModifierItem(
                 id = "4",
                 name = "Modifier 4",
                 price = 30.0,
+                isOutOfStock = true,
             ),
         )
 
@@ -83,14 +87,15 @@ class FBMockData {
                 calories = 3,
                 isVegan = true,
                 modifierGroups =
-                    ModifiersGroup(
-                        id = "4362",
-                        name = "Mix modifiers",
-                        vistaId = "2",
-                        maximumQuantity = 2,
-                        minimumQuantity = 2,
-                        modifiers = modifiersList,
-                    ),
+                ModifiersGroup(
+                    id = "4362",
+                    name = "Mix modifiers",
+                    vistaId = "2",
+                    maximumQuantity = 2,
+                    minimumQuantity = 2,
+                    modifiers = modifiersList,
+                ),
+                isOutOfStock = false,
             ),
             AlternativeItem(
                 id = "2",
@@ -100,6 +105,7 @@ class FBMockData {
                 name = "Alternative 2",
                 price = 30.0,
                 modifierGroups = null,
+                isOutOfStock = false,
             ),
             AlternativeItem(
                 id = "3",
@@ -109,6 +115,7 @@ class FBMockData {
                 calories = 3,
                 isVegan = true,
                 modifierGroups = null,
+                isOutOfStock = false,
             ),
         )
 
@@ -122,7 +129,7 @@ class FBMockData {
             calories = 10,
             isVegan = Random.nextBoolean(),
             modifierGroups =
-                listOf(
+            listOf(
 //            ModifiersGroup(
 //                id = 1,
 //                name = "Modifier Group 1",
@@ -143,9 +150,9 @@ class FBMockData {
 //                    ModifierItem(id = it, name = "Modifier $it", price = 10.0)
 //                }
 //            )
-                ),
+            ),
             packageChildItems =
-                listOf(
+            listOf(
 //            PackageChildItem(
 //                id = 1,
 //                name = "small drink",
@@ -160,44 +167,44 @@ class FBMockData {
 //                alternatives = listOf(),
 //                concessionItemId = 2
 //            )
-                ),
+            ),
             upsellingItems =
-                (1..3).map {
-                    UpsellingItem(
-                        id = it.toString(),
-                        concessionItemId = "1",
-                        sort = it,
-                        isDefault = false,
-                        size =
-                            when (it) {
-                                1 -> UpsellingItemSize.Small
-                                2 -> UpsellingItemSize.Medium
-                                3 -> UpsellingItemSize.Large
-                                else -> UpsellingItemSize.Small
-                            },
-                        concessionItem =
-                            ConcessionItem(
-                                id = (it - 1).toString(),
-                                price = 2.3 * it,
-                                name = null,
-                                isOutOfStock = false,
-                                description = null,
-                                imageUrl = null,
-                                calories = null,
-                                isVegan = null,
-                                alternatives = listOf(),
-                                upsellingGroup = null,
-                            ),
-                    )
-                },
+            (1..3).map {
+                UpsellingItem(
+                    id = it.toString(),
+                    concessionItemId = "1",
+                    sort = it,
+                    isDefault = false,
+                    size =
+                    when (it) {
+                        1 -> UpsellingItemSize.Small
+                        2 -> UpsellingItemSize.Medium
+                        3 -> UpsellingItemSize.Large
+                        else -> UpsellingItemSize.Small
+                    },
+                    concessionItem =
+                    ConcessionItem(
+                        id = (it - 1).toString(),
+                        price = 2.3 * it,
+                        name = null,
+                        isOutOfStock = false,
+                        description = null,
+                        imageUrl = null,
+                        calories = null,
+                        isVegan = null,
+                        alternatives = listOf(),
+                        upsellingGroup = null,
+                    ),
+                )
+            },
             addOns =
-                (1..5).map {
-                    AddOnItem(
-                        id = it.toString(),
-                        name = "Max Oneal $it",
-                        concessionItem = mockDetailsConcessionItemsList[it],
-                    )
-                },
+            (1..5).map {
+                AddOnItem(
+                    id = it.toString(),
+                    name = "Max Oneal $it",
+                    concessionItem = mockDetailsConcessionItemsList[it],
+                )
+            },
             alternatives = alternativesList,
 //        alternatives = listOf(),
             isOutOfStock = false,
@@ -208,23 +215,39 @@ class FBMockData {
         AlternativeCustomization(
             alternativeItem = alternativesList[0],
             modifiersCustomization =
-                ModifiersCustomization(
-                    mapOf(
-                        0 to ModifierItem("1", "modifier1", 10.0),
-                        1 to ModifierItem("2", "modifier2", 10.0),
-                    ),
+            ModifiersCustomization(
+                mapOf(
+                    0 to
+                            ModifierItem(
+                                "1", "modifier1", 10.0,
+                                isOutOfStock = false,
+                            ),
+                    1 to
+                            ModifierItem(
+                                "2", "modifier2", 10.0,
+                                isOutOfStock = false,
+                            ),
                 ),
+            ),
         )
     val alternativeCustomization2 =
         AlternativeCustomization(
             alternativeItem = alternativesList[1],
             modifiersCustomization =
-                ModifiersCustomization(
-                    mapOf(
-                        0 to ModifierItem("1", "mix1", 10.0),
-                        1 to ModifierItem("2", "mix2", 10.0),
-                    ),
+            ModifiersCustomization(
+                mapOf(
+                    0 to
+                            ModifierItem(
+                                "1", "mix1", 10.0,
+                                isOutOfStock = false,
+                            ),
+                    1 to
+                            ModifierItem(
+                                "2", "mix2", 10.0,
+                                isOutOfStock = false,
+                            ),
                 ),
+            ),
         )
     val cartItem =
         CartItem(
@@ -233,20 +256,20 @@ class FBMockData {
             isOfferItem = false,
             alternativeCustomization = null,
             childItemsCustomization =
-                ChildItemsCustomization(
-                    mapOf(
-                        "1" to
+            ChildItemsCustomization(
+                mapOf(
+                    "1" to
                             mapOf(
                                 0 to alternativeCustomization,
                                 1 to alternativeCustomization2,
                             ),
-                        "2" to
+                    "2" to
                             mapOf(
                                 0 to alternativeCustomization,
                                 1 to alternativeCustomization2,
                             ),
-                    ),
                 ),
+            ),
             modifierGroupsCustomization = null,
             addToCartTimestamp = 1000,
         )
@@ -258,20 +281,20 @@ class FBMockData {
             isOfferItem = true,
             alternativeCustomization = null,
             childItemsCustomization =
-                ChildItemsCustomization(
-                    mapOf(
-                        "1" to
+            ChildItemsCustomization(
+                mapOf(
+                    "1" to
                             mapOf(
                                 0 to alternativeCustomization,
                                 1 to alternativeCustomization2,
                             ),
-                        "2" to
+                    "2" to
                             mapOf(
                                 0 to alternativeCustomization,
                                 1 to alternativeCustomization2,
                             ),
-                    ),
                 ),
+            ),
             modifierGroupsCustomization = null,
             addToCartTimestamp = 1000,
         )

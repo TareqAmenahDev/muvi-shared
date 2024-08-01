@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinCocoapods)
-    alias(libs.plugins.androidLibrary)
+//    alias(libs.plugins.androidLibrary)
     id("maven-publish")
 }
 
@@ -10,20 +10,15 @@ repositories {
     mavenLocal()
 }
 
-val versionName = "0.0.2"
+val versionName = "0.0.3"
 val iosDeploymentTarget = "13.0"
 
 kotlin {
-    androidTarget {
-        compilations.all {
-            kotlinOptions {
-                jvmTarget = "1.8"
-            }
-        }
-    }
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+
+    jvm()
 
     cocoapods {
         summary = "Some description for the Shared Module"
@@ -38,7 +33,8 @@ kotlin {
     
     sourceSets {
         commonMain.dependencies {
-            implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+            implementation (libs.kotlinx.coroutines.core)
+            implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.6.0")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -49,7 +45,7 @@ kotlin {
         publications {
             create<MavenPublication>("muvishared") {
                 from(components["kotlin"])
-                groupId = "com.muvi"
+                groupId = "com.muvi.shared"
                 artifactId = "muvishared"
                 version = versionName
             }
@@ -76,11 +72,11 @@ tasks.register<Copy>("publishMuviSharedXCFramework") {
     into("../muvi-shared-cocoa") // Destination directory inside the project
 
 }
-
-android {
-    namespace = "com.muvi.muvishared"
-    compileSdk = 34
-    defaultConfig {
-        minSdk = 24
-    }
-}
+//
+//android {
+//    namespace = "com.muvi.muvishared"
+//    compileSdk = 34
+//    defaultConfig {
+//        minSdk = 24
+//    }
+//}

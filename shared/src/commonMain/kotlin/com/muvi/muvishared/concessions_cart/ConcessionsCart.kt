@@ -6,6 +6,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.datetime.Clock
 
 class ConcessionsCart(
     private val coroutineScope: CoroutineScope,
@@ -122,10 +123,7 @@ class ConcessionsCartList {
                     currentItemIfExist.copy(quantity = currentItemIfExist.quantity + quantity)
                 _itemsList.filter { it != currentItemIfExist }.toList() + updatedItem
             } else {
-                // TODO: enhance "add item to cart timestamp"
-//                val timestamp = Clock.System.now().toEpochMilliseconds()
-                val timestamp = ( _itemsList.maxByOrNull { it.addToCartTimestamp }?.addToCartTimestamp ?: 0 ) + 1
-
+                val timestamp = Clock.System.now().epochSeconds
                 val createdCartItem =
                     CartItem(
                         concessionCartItem = concessionCartItem,
@@ -141,10 +139,7 @@ class ConcessionsCartList {
     }
 
     fun addCartItemsList(foodItems: List<CartItem>) {
-        // TODO: enhance "add item to cart timestamp"
-//        val timestamp = Clock.System.now().toEpochMilliseconds()
-        val timestamp = ( foodItems.maxByOrNull { it.addToCartTimestamp }?.addToCartTimestamp ?: 0 ) + 1
-
+        val timestamp = Clock.System.now().epochSeconds
         foodItems.forEachIndexed { index, foodCartItem ->
             val currentItemIfExist = _itemsList.firstOrNull { it == foodCartItem }
 

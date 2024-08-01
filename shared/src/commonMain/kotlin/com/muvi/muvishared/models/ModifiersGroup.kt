@@ -13,6 +13,7 @@ data class ModifierItem(
     val id: String,
     val name: String?,
     val price: Double?,
+    val isOutOfStock: Boolean,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

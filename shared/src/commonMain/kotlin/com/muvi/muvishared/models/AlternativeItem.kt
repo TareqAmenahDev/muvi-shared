@@ -8,6 +8,7 @@ data class AlternativeItem(
     val calories: Int?,
     val isVegan: Boolean?,
     val modifierGroups: ModifiersGroup?,
+    val isOutOfStock: Boolean,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
