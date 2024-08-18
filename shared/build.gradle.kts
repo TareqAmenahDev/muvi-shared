@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.kotlinCocoapods)
@@ -12,6 +15,10 @@ repositories {
 
 val versionName = "0.0.3"
 val iosDeploymentTarget = "13.0"
+
+val githubProperties = Properties().apply {
+    load(FileInputStream(rootProject.file("github.properties")))
+}
 
 kotlin {
     iosX64()
@@ -45,21 +52,22 @@ kotlin {
         publications {
             create<MavenPublication>("muvishared") {
                 from(components["kotlin"])
-                groupId = "com.muvi.shared"
+                groupId = "com.muvi"
                 artifactId = "muvishared"
                 version = versionName
             }
         }
 
-//        repositories {
-//            maven {
-//                url = uri("https://maven.pkg.github.com/your-username/your-repo")
-//                credentials {
-//                    username = project.findProperty("gpr.user") as String? ?: System.getenv("USERNAME")
-//                    password = project.findProperty("gpr.key") as String? ?: System.getenv("TOKEN")
-//                }
-//            }
-//        }
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = uri("https://maven.pkg.github.com/TareqAmenahDev/muvi-shared")
+                credentials {
+                    username = githubProperties["gpr.usr"] as String? ?: System.getenv("GPR_USER")
+                    password = githubProperties["gpr.key"] as String? ?: System.getenv("GPR_API_KEY")
+                }
+            }
+        }
     }
 }
 
@@ -72,11 +80,3 @@ tasks.register<Copy>("publishMuviSharedXCFramework") {
     into("../muvi-shared-cocoa") // Destination directory inside the project
 
 }
-//
-//android {
-//    namespace = "com.muvi.muvishared"
-//    compileSdk = 34
-//    defaultConfig {
-//        minSdk = 24
-//    }
-//}
