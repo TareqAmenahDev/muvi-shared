@@ -3,6 +3,7 @@ package com.muvi.muvishared.concessions_cart
 import com.muvi.muvishared.models.ConcessionItem
 import com.muvi.muvishared.models.ConcessionItemDetails
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
@@ -95,6 +96,8 @@ class ConcessionsCart(
         _itemsListAsState.value = itemsList()
     }
 }
+
+fun createConcessionCartInstance() = ConcessionsCart(MainScope())
 
 class ConcessionsCartList {
     private var _itemsList: List<CartItem> = listOf()

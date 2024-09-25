@@ -13,7 +13,7 @@ repositories {
     mavenLocal()
 }
 
-val versionName = "0.0.3"
+val versionName = "0.0.4"
 val iosDeploymentTarget = "13.0"
 
 val githubProperties = Properties().apply {
