@@ -1,5 +1,5 @@
 
 
-fun main (){
+private fun main (){
     println("Hello world!")
 }
