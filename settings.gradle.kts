@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Muvi_Shared"
 include(":shared")
+include(":shared:data")
